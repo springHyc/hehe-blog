@@ -1,0 +1,12 @@
+.travel-plan {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.table_btn {
+    margin-right: 16px;
+}
+
+.table_btn:last-child {
+    margin-right: 0px;
+}
