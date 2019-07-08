@@ -47,7 +47,7 @@ export default class TravelPlan extends Component {
     render() {
         return (
             <div className='travel-plan'>
-                <div style={{ width: '40%' }}>
+                <div style={{ flex: 1 }}>
                     <h2>添加想要去游玩的景点</h2>
                     <ViewPoint
                         fetchList={() => this.fetchData()}
@@ -55,7 +55,13 @@ export default class TravelPlan extends Component {
                     />
                 </div>
                 <Divider dashed type='vertical' style={{ height: '100vh' }} />
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flex: 2
+                    }}
+                >
                     <h2>景点列表</h2>
                     <TravelList
                         dataList={this.state.dataList}

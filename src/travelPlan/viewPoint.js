@@ -28,15 +28,7 @@ class ViewPoint extends Component {
         this.state = {
             previewVisible: false,
             previewImage: '',
-            fileList: [
-                {
-                    uid: '-1',
-                    name: 'xxx.png',
-                    status: 'done',
-                    url:
-                        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-                }
-            ]
+            fileList: []
         };
     }
     save = () => {
@@ -102,7 +94,7 @@ class ViewPoint extends Component {
                 <Form>
                     <Form.Item
                         label='景点'
-                        labelCol={{ span: 4 }}
+                        labelCol={{ span: 8 }}
                         wrapperCol={{ span: 16 }}
                         style={{ display: 'flex' }}
                     >
@@ -112,7 +104,7 @@ class ViewPoint extends Component {
                     </Form.Item>
                     <Form.Item
                         label='最佳游玩时间'
-                        labelCol={{ span: 4 }}
+                        labelCol={{ span: 8 }}
                         wrapperCol={{ span: 16 }}
                         style={{ display: 'flex' }}
                     >
@@ -122,7 +114,7 @@ class ViewPoint extends Component {
                     </Form.Item>
                     <Form.Item
                         label='交通方式'
-                        labelCol={{ span: 4 }}
+                        labelCol={{ span: 8 }}
                         wrapperCol={{ span: 16 }}
                         style={{ display: 'flex' }}
                     >
@@ -132,7 +124,7 @@ class ViewPoint extends Component {
                     </Form.Item>
                     <Form.Item
                         label='小伙伴'
-                        labelCol={{ span: 4 }}
+                        labelCol={{ span: 8 }}
                         wrapperCol={{ span: 16 }}
                         style={{ display: 'flex' }}
                     >
@@ -142,7 +134,7 @@ class ViewPoint extends Component {
                     </Form.Item>
                     <Form.Item
                         label='照片墙'
-                        labelCol={{ span: 4 }}
+                        labelCol={{ span: 8 }}
                         wrapperCol={{ span: 20 }}
                         style={{ display: 'flex' }}
                     >
@@ -151,7 +143,6 @@ class ViewPoint extends Component {
                                 action={`/viewPoint/photo/upload?id=${
                                     this.props.viewPoint._id
                                 }`}
-                                // action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
                                 listType='picture-card'
                                 fileList={fileList}
                                 onPreview={this.handlePreview}
