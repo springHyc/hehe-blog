@@ -1,22 +1,11 @@
 import React, { Component } from 'react';
-import LocaleProvider from 'antd/es/locale-provider';
-import 'antd/es/locale-provider/style/css';
+import { LocaleProvider, Table, Button, message } from 'antd';
 import zhCN from 'antd/es/locale-provider/zh_CN';
-import Table from 'antd/es/table';
-import 'antd/es/table/style/css';
 import columns from './columns';
-import Button from 'antd/es/button';
-import 'antd/es/button/style/css';
 import axios from 'axios';
-import { message } from 'antd';
-import 'antd/es/message/style/css';
 import './index.css';
 
 export default class TravelList extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
-
     getColumns = () =>
         columns.concat([
             {

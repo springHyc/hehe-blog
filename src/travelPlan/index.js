@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import http from '../common/http';
-import Divider from 'antd/es/divider';
-import 'antd/es/divider/style/css';
+import { Divider, Button } from 'antd';
 import TravelList from './travelList';
 import ViewPoint from './viewPoint';
 import './index.css';
-import Button from 'antd/es/button';
-import 'antd/es/button/style/css';
 
 export default class TravelPlan extends Component {
     constructor(props) {
@@ -70,8 +66,10 @@ export default class TravelPlan extends Component {
                             this.setState({ editViewPoint: viewPoint });
                         }}
                     />
-                    <Button onClick={this.getImages}>show image</Button>
-                    <img alt='图片' src={this.state.imgData} />
+                    <Button type='primary' onClick={this.getImages}>
+                        show image
+                    </Button>
+                    {/* <img alt='图片' src={this.state.imgData} /> */}
                 </div>
             </div>
         );
