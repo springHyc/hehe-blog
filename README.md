@@ -2,8 +2,12 @@
 
 ## 更新说明
 
--   添加 antd
--   添加 antd 的按需引用
+### allConfigs
+
+-   执行 npm run eject 以让 webpack 的配置文件显示出来，然后修改 webpack 的相关配置来实现 antd 的按需加载
+
+*   添加 antd
+*   添加 antd 的按需引用
 
 ## 项目概况
 
