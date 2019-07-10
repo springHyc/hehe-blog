@@ -11,15 +11,6 @@ import {
     Modal,
     Button
 } from 'antd';
-import 'antd/es/form/style/css';
-import 'antd/es/input/style/css';
-import 'antd/es/button/style/css';
-import 'antd/es/divider/style/css';
-import 'antd/es/message/style/css';
-import 'antd/es/date-picker/style/css';
-import 'antd/es/icon/style/css';
-import 'antd/es/upload/style/css';
-import 'antd/es/modal/style/css';
 import axios from 'axios';
 
 class ViewPoint extends Component {

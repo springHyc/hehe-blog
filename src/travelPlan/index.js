@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Divider, Button } from 'antd';
 import TravelList from './travelList';
 import ViewPoint from './viewPoint';
-import './index.css';
+import './index.less';
 
 export default class TravelPlan extends Component {
     constructor(props) {

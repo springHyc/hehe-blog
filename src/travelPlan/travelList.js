@@ -3,7 +3,7 @@ import { LocaleProvider, Table, Button, message } from 'antd';
 import zhCN from 'antd/es/locale-provider/zh_CN';
 import columns from './columns';
 import axios from 'axios';
-import './index.css';
+import './index.less';
 
 export default class TravelList extends Component {
     getColumns = () =>
