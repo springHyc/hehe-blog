@@ -1,4 +1,4 @@
-import * as TravelPlanActions from './travelPlan';
+import * as TravelPlan from './travelPlan';
 
-const actions = { ...TravelPlanActions };
+const actions = { TravelPlan };
 export default actions;

@@ -5,7 +5,8 @@ import { Divider, Button } from 'antd';
 import TravelList from './travelList';
 import ViewPoint from './viewPoint';
 import './index.less';
-import { fetchTravelPlanListStart } from '../actions/travelPlan';
+// import { fetchTravelPlanListStart } from '../actions/travelPlan';
+import actions from '../actions';
 import LoadingHit from '../common/loadingHint';
 
 class TravelPlan extends Component {
@@ -30,7 +31,7 @@ class TravelPlan extends Component {
         //     .catch(function(error) {
         //         console.log(error);
         //     });
-        this.props.dispatch(fetchTravelPlanListStart());
+        this.props.dispatch(actions.TravelPlan.fetchTravelPlanListStart());
     };
 
     getImages = () => {

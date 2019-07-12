@@ -1,19 +1,22 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import actions from '../actions/index';
+import actions from '../actions';
 import axios from 'axios';
 
+const travelPlanActions = actions.TravelPlan;
 function* fetchTravelPlanList() {
     try {
         const res = yield axios.get('/viewPoints');
-        yield put(actions.fetchTravelPlanListSuccess(res.data));
+        yield put(travelPlanActions.fetchTravelPlanListSuccess(res.data));
     } catch (e) {
-        yield put(actions.fetchTravelPlanListFailure(e));
+        yield put(travelPlanActions.fetchTravelPlanListFailure(e));
     }
 }
 
 function* travelPlanSaga() {
-    debugger;
-    yield takeEvery(actions.FETCH_TRAVEL_PLAN_LIST_START, fetchTravelPlanList);
+    yield takeEvery(
+        travelPlanActions.FETCH_TRAVEL_PLAN_LIST_START,
+        fetchTravelPlanList
+    );
 }
 
 export default travelPlanSaga;
