@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { Divider, Button } from 'antd';
 import TravelList from './travelList';
 import ViewPoint from './viewPoint';
 import './index.less';
+import { fetchTravelPlanListStart } from '../actions/travelPlan';
+import LoadingHit from '../common/loadingHint';
 
-export default class TravelPlan extends Component {
+class TravelPlan extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,14 +22,15 @@ export default class TravelPlan extends Component {
     }
 
     fetchData = () => {
-        axios
-            .get('/viewPoints')
-            .then(response => {
-                this.setState({ dataList: response.data });
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+        // axios
+        //     .get('/viewPoints')
+        //     .then(response => {
+        //         this.setState({ dataList: response.data });
+        //     })
+        //     .catch(function(error) {
+        //         console.log(error);
+        //     });
+        this.props.dispatch(fetchTravelPlanListStart());
     };
 
     getImages = () => {
@@ -41,6 +45,7 @@ export default class TravelPlan extends Component {
     };
 
     render() {
+        const { dataList, type } = this.props.travelPlan;
         return (
             <div className='travel-plan'>
                 <div style={{ flex: 1 }}>
@@ -59,13 +64,16 @@ export default class TravelPlan extends Component {
                     }}
                 >
                     <h2>景点列表</h2>
-                    <TravelList
-                        dataList={this.state.dataList}
-                        fetchList={() => this.fetchData()}
-                        update={viewPoint => {
-                            this.setState({ editViewPoint: viewPoint });
-                        }}
-                    />
+                    <LoadingHit type={type}>
+                        <TravelList
+                            dataList={dataList}
+                            fetchList={() => this.fetchData()}
+                            update={viewPoint => {
+                                this.setState({ editViewPoint: viewPoint });
+                            }}
+                        />
+                    </LoadingHit>
+
                     <Button type='primary' onClick={this.getImages}>
                         show image
                     </Button>
@@ -75,3 +83,18 @@ export default class TravelPlan extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return state;
+};
+
+const mapDispatchToProps = dispatch => ({
+    dispatch
+});
+
+const TravelPlanContanier = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TravelPlan);
+
+export default TravelPlanContanier;
