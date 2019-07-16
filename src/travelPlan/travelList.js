@@ -11,37 +11,35 @@ export default class TravelList extends Component {
             {
                 title: '操作',
                 dataIndex: 'action',
-                render: (value, record) => {
-                    return (
-                        <div>
-                            <Button
-                                ghost
-                                type='primary'
-                                onClick={() => {
-                                    this.delete(record._id);
-                                }}
-                                className='table_btn'
-                            >
-                                删除
-                            </Button>
-                            <Button
-                                ghost
-                                type='primary'
-                                onClick={() => {
-                                    this.props.update(record);
-                                }}
-                                className='table_btn'
-                            >
-                                更新
-                            </Button>
-                        </div>
-                    );
-                }
+                render: (value, record) => (
+                    <div>
+                        <Button
+                            ghost
+                            type='primary'
+                            onClick={() => {
+                                this.delete(record._id);
+                            }}
+                            className='table_btn'
+                        >
+                            删除
+                        </Button>
+                        <Button
+                            ghost
+                            type='primary'
+                            onClick={() => {
+                                this.props.update(record);
+                            }}
+                            className='table_btn'
+                        >
+                            更新
+                        </Button>
+                    </div>
+                )
             }
         ]);
     delete = id => {
         axios.delete(`/viewPoint/${id}`).then(
-            res => {
+            () => {
                 this.props.fetchList();
                 message.success('删除成功！');
             },

@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-import {
-    Input,
-    Form,
-    DatePicker,
-    message,
-    Icon,
-    Upload,
-    Modal,
-    Button
-} from 'antd';
+import { Input, Form, DatePicker, message, Icon, Upload, Modal, Button } from 'antd';
 import axios from 'axios';
 
 class ViewPoint extends Component {
@@ -34,7 +25,7 @@ class ViewPoint extends Component {
                 }
                 axios
                     .post('/viewPoint', { data })
-                    .then(response => {
+                    .then(() => {
                         this.props.form.resetFields();
                         message.success('添加成功！');
                         this.props.fetchList();
@@ -83,57 +74,30 @@ class ViewPoint extends Component {
         return (
             <div>
                 <Form>
-                    <Form.Item
-                        label='景点'
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 16 }}
-                        style={{ display: 'flex' }}
-                    >
+                    <Form.Item label='景点' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
                         {getFieldDecorator('title', {
                             initialValue: viewPoint.title || undefined
                         })(<Input />)}
                     </Form.Item>
-                    <Form.Item
-                        label='最佳游玩时间'
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 16 }}
-                        style={{ display: 'flex' }}
-                    >
+                    <Form.Item label='最佳游玩时间' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
                         {getFieldDecorator('bestTime', {
                             initialValue: moment(viewPoint.bestTime) || moment()
                         })(<DatePicker />)}
                     </Form.Item>
-                    <Form.Item
-                        label='交通方式'
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 16 }}
-                        style={{ display: 'flex' }}
-                    >
+                    <Form.Item label='交通方式' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
                         {getFieldDecorator('transportation', {
                             initialValue: viewPoint.transportation || undefined
                         })(<Input />)}
                     </Form.Item>
-                    <Form.Item
-                        label='小伙伴'
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 16 }}
-                        style={{ display: 'flex' }}
-                    >
+                    <Form.Item label='小伙伴' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
                         {getFieldDecorator('partner', {
                             initialValue: viewPoint.partner || undefined
                         })(<Input />)}
                     </Form.Item>
-                    <Form.Item
-                        label='照片墙'
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 20 }}
-                        style={{ display: 'flex' }}
-                    >
+                    <Form.Item label='照片墙' labelCol={{ span: 8 }} wrapperCol={{ span: 20 }} style={{ display: 'flex' }}>
                         <div className='clearfix'>
                             <Upload
-                                action={`/viewPoint/photo/upload?id=${
-                                    this.props.viewPoint._id
-                                }`}
+                                action={`/viewPoint/photo/upload?id=${this.props.viewPoint._id}`}
                                 listType='picture-card'
                                 fileList={fileList}
                                 onPreview={this.handlePreview}
@@ -141,16 +105,8 @@ class ViewPoint extends Component {
                             >
                                 {fileList.length >= 3 ? null : uploadButton}
                             </Upload>
-                            <Modal
-                                visible={previewVisible}
-                                footer={null}
-                                onCancel={this.handleCancel}
-                            >
-                                <img
-                                    alt='example'
-                                    style={{ width: '100%' }}
-                                    src={previewImage}
-                                />
+                            <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+                                <img alt='example' style={{ width: '100%' }} src={previewImage} />
                             </Modal>
                         </div>
                     </Form.Item>

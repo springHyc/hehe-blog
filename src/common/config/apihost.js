@@ -1,5 +1,5 @@
 const devHosts = ['//127.0.0.1:4321', 'localhost:4321'];
-const prodHosts = ['//127.0.0.1:4321'];
+// const prodHosts = ['//127.0.0.1:4321'];
 let protocol = window.location.protocol;
 let URL = `${protocol}127.0.0.1:4321`;
 const isDev = getWorkEnv(devHosts);
@@ -24,6 +24,3 @@ function getWorkEnv(hosts) {
 module.exports = {
     URL: URL
 };
-// export default {
-//     URL: URL
-// };

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import API_HOST from './config/apihost.js';
+// import API_HOST from './config/apihost.js';
 
 const http = axios.create({
     xsrfCookieName: 'xsrf-token',
@@ -11,15 +11,8 @@ const http = axios.create({
 
 http.interceptors.request.use(
     config => {
-        if (
-            config.method === 'post' ||
-            config.method === 'put' ||
-            config.method === 'delete'
-        ) {
-            if (
-                typeof config.data !== 'string' &&
-                config.headers['Content-Type'] !== 'multipart/form-data'
-            ) {
+        if (config.method === 'post' || config.method === 'put' || config.method === 'delete') {
+            if (typeof config.data !== 'string' && config.headers['Content-Type'] !== 'multipart/form-data') {
                 config.data = JSON.stringify(config.data);
             }
         }
@@ -31,9 +24,7 @@ http.interceptors.request.use(
 );
 
 http.interceptors.response.use(
-    async data => {
-        return data;
-    },
+    async data => data,
     error => {
         if (error.response) {
             if (error.response.status === 500) {

@@ -5,7 +5,6 @@ import { Divider, Button } from 'antd';
 import TravelList from './travelList';
 import ViewPoint from './viewPoint';
 import './index.less';
-// import { fetchTravelPlanListStart } from '../actions/travelPlan';
 import actions from '../actions';
 import LoadingHit from '../common/loadingHint';
 
@@ -23,14 +22,6 @@ class TravelPlan extends Component {
     }
 
     fetchData = () => {
-        // axios
-        //     .get('/viewPoints')
-        //     .then(response => {
-        //         this.setState({ dataList: response.data });
-        //     })
-        //     .catch(function(error) {
-        //         console.log(error);
-        //     });
         this.props.dispatch(actions.TravelPlan.fetchTravelPlanListStart());
     };
 
@@ -51,10 +42,7 @@ class TravelPlan extends Component {
             <div className='travel-plan'>
                 <div style={{ flex: 1 }}>
                     <h2>添加想要去游玩的景点</h2>
-                    <ViewPoint
-                        fetchList={() => this.fetchData()}
-                        viewPoint={this.state.editViewPoint}
-                    />
+                    <ViewPoint fetchList={() => this.fetchData()} viewPoint={this.state.editViewPoint} />
                 </div>
                 <Divider dashed type='vertical' style={{ height: '100vh' }} />
                 <div
@@ -85,9 +73,7 @@ class TravelPlan extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return state;
-};
+const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => ({
     dispatch

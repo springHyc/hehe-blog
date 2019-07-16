@@ -13,10 +13,7 @@ function* fetchTravelPlanList() {
 }
 
 function* travelPlanSaga() {
-    yield takeEvery(
-        travelPlanActions.FETCH_TRAVEL_PLAN_LIST_START,
-        fetchTravelPlanList
-    );
+    yield takeEvery(travelPlanActions.FETCH_TRAVEL_PLAN_LIST_START, fetchTravelPlanList);
 }
 
 export default travelPlanSaga;
