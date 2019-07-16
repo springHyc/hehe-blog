@@ -27,7 +27,7 @@ class TravelPlan extends Component {
 
     getImages = () => {
         axios
-            .get('/viewPoint/pohots/5d204432f6784ee965558105')
+            .get('/api/viewPoint/pohots/5d204432f6784ee965558105')
             .then(response => {
                 this.setState({ imgData: response.data });
             })

@@ -5,7 +5,7 @@ import axios from 'axios';
 const travelPlanActions = actions.TravelPlan;
 function* fetchTravelPlanList() {
     try {
-        const res = yield axios.get('/viewPoints');
+        const res = yield axios.get('/api/viewPoints');
         yield put(travelPlanActions.fetchTravelPlanListSuccess(res.data));
     } catch (e) {
         yield put(travelPlanActions.fetchTravelPlanListFailure(e));

@@ -24,7 +24,7 @@ class ViewPoint extends Component {
                     data._id = this.props.viewPoint._id;
                 }
                 axios
-                    .post('/viewPoint', { data })
+                    .post('/api/viewPoint', { data })
                     .then(() => {
                         this.props.form.resetFields();
                         message.success('添加成功！');
@@ -97,7 +97,7 @@ class ViewPoint extends Component {
                     <Form.Item label='照片墙' labelCol={{ span: 8 }} wrapperCol={{ span: 20 }} style={{ display: 'flex' }}>
                         <div className='clearfix'>
                             <Upload
-                                action={`/viewPoint/photo/upload?id=${this.props.viewPoint._id}`}
+                                action={`/api/viewPoint/photo/upload?id=${this.props.viewPoint._id}`}
                                 listType='picture-card'
                                 fileList={fileList}
                                 onPreview={this.handlePreview}
