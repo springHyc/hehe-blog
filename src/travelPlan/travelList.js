@@ -1,13 +1,48 @@
 import React, { Component } from 'react';
-import { LocaleProvider, Table, Button, message } from 'antd';
+import { LocaleProvider, Table, Button, message, Upload } from 'antd';
 import zhCN from 'antd/es/locale-provider/zh_CN';
 import columns from './columns';
 import axios from 'axios';
 import './index.less';
+let fileList = [];
 
 export default class TravelList extends Component {
+    constructor(props) {
+        super(props);
+    }
     getColumns = () =>
         columns.concat([
+            {
+                title: '照片墙掠影',
+                dataIndex: 'imgIds',
+                render: (values, record) => {
+                    fileList = values.map((item, index) => ({
+                        uid: index,
+                        name: item,
+                        status: 'done',
+                        url: 'http://127.0.0.1:4321' + item
+                    }));
+                    return (
+                        <Upload
+                            action={`/api/viewPoint/photo/upload?id=${record._id}`}
+                            listType='picture-card'
+                            fileList={fileList}
+                            onChange={({ fileList }) => {
+                                fileList = fileList;
+                            }}
+                            onRemove={file => {
+                                axios.delete(`/api/viewPoint/photo/${record._id}`, { params: { url: file.name } }).then(
+                                    () => {
+                                        this.props.fetchList();
+                                        message.success('删除成功！');
+                                    },
+                                    () => message.success('删除失败！')
+                                );
+                            }}
+                        />
+                    );
+                }
+            },
             {
                 title: '操作',
                 dataIndex: 'action',

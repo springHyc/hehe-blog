@@ -25,17 +25,6 @@ class TravelPlan extends Component {
         this.props.dispatch(actions.TravelPlan.fetchTravelPlanListStart());
     };
 
-    getImages = () => {
-        axios
-            .get('/api/viewPoint/pohots/5d204432f6784ee965558105')
-            .then(response => {
-                this.setState({ imgData: response.data });
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
-    };
-
     render() {
         const { dataList, type } = this.props.travelPlan;
         return (
@@ -62,11 +51,6 @@ class TravelPlan extends Component {
                             }}
                         />
                     </LoadingHit>
-
-                    <Button type='primary' onClick={this.getImages}>
-                        show image
-                    </Button>
-                    {/* <img alt='图片' src={this.state.imgData} /> */}
                 </div>
             </div>
         );
