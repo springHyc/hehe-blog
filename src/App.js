@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.less';
 import TravelPlan from './travelPlan';
-import { Provider } from 'react-redux';
-import store from './store/configStore';
+import ViewPoint from './travelPlan/viewPoint';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Nav from './nav';
+import Introduction from './introduction';
+import Home from './home';
 
-function App() {
-    return (
-        <Provider store={store}>
-            <div className='App'>
-                <h1>Hehe's Blog</h1>
-                <section style={{ textAlign: 'center' }}>
-                    <h2>旅游规划</h2>
-                    <TravelPlan />
-                </section>
-            </div>
-        </Provider>
-    );
+class App extends Component {
+    render() {
+        return (
+            <Router>
+                {/* <Nav /> */}
+                <Switch>
+                    <Route path='/' exact render={props => <Home {...{ ...props, ...this.props }} />} />
+                    <Route path='/home' component={Introduction} />
+                    <Route path='/travelPlan' exact component={TravelPlan} />
+                </Switch>
+            </Router>
+        );
+    }
 }
 
 export default App;

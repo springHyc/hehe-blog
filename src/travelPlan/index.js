@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import { Divider, Button } from 'antd';
+import { Divider } from 'antd';
 import TravelList from './travelList';
 import ViewPoint from './viewPoint';
 import './index.less';
@@ -28,29 +27,32 @@ class TravelPlan extends Component {
     render() {
         const { dataList, type } = this.props.travelPlan;
         return (
-            <div className='travel-plan'>
-                <div style={{ flex: 1 }}>
-                    <h2>添加想要去游玩的景点</h2>
-                    <ViewPoint fetchList={() => this.fetchData()} viewPoint={this.state.editViewPoint} />
-                </div>
-                <Divider dashed type='vertical' style={{ height: '100vh' }} />
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        flex: 2
-                    }}
-                >
-                    <h2>景点列表</h2>
-                    <LoadingHit type={type}>
-                        <TravelList
-                            dataList={dataList}
-                            fetchList={() => this.fetchData()}
-                            update={viewPoint => {
-                                this.setState({ editViewPoint: viewPoint });
-                            }}
-                        />
-                    </LoadingHit>
+            <div>
+                <h1>旅游规划</h1>
+                <div className='travel-plan'>
+                    <div style={{ flex: 1 }}>
+                        <h2>添加想要去游玩的景点</h2>
+                        <ViewPoint fetchList={() => this.fetchData()} viewPoint={this.state.editViewPoint} />
+                    </div>
+                    <Divider dashed type='vertical' style={{ height: '100vh' }} />
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            flex: 2
+                        }}
+                    >
+                        <h2>景点列表</h2>
+                        <LoadingHit type={type}>
+                            <TravelList
+                                dataList={dataList}
+                                fetchList={() => this.fetchData()}
+                                update={viewPoint => {
+                                    this.setState({ editViewPoint: viewPoint });
+                                }}
+                            />
+                        </LoadingHit>
+                    </div>
                 </div>
             </div>
         );
