@@ -39,7 +39,6 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "http://127.0.0.1:4321",
     "devDependencies": {
         "babel-plugin-import": "^1.12.0"
     }
