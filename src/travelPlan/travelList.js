@@ -4,7 +4,7 @@ import zhCN from 'antd/es/locale-provider/zh_CN';
 import columns from './columns';
 import axios from 'axios';
 import './index.less';
-let fileList = [];
+let _fileList = [];
 
 export default class TravelList extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ export default class TravelList extends Component {
                 title: '照片墙掠影',
                 dataIndex: 'imgIds',
                 render: (values, record) => {
-                    fileList = values.map((item, index) => ({
+                    _fileList = values.map((item, index) => ({
                         uid: index,
                         name: item,
                         status: 'done',
@@ -26,9 +26,9 @@ export default class TravelList extends Component {
                         <Upload
                             action={`/api/viewPoint/photo/upload?id=${record._id}`}
                             listType='picture-card'
-                            fileList={fileList}
+                            fileList={_fileList}
                             onChange={({ fileList }) => {
-                                fileList = fileList;
+                                _fileList = fileList;
                             }}
                             onRemove={file => {
                                 axios.delete(`/api/viewPoint/photo/${record._id}`, { params: { url: file.name } }).then(
@@ -62,18 +62,18 @@ export default class TravelList extends Component {
                             ghost
                             type='primary'
                             onClick={() => {
-                                this.props.update(record);
+                                // this.props.history.push(`#editViewPoint?viewPoint=${record}`);
                             }}
                             className='table_btn'
                         >
-                            更新
+                            修改
                         </Button>
                     </div>
                 )
             }
         ]);
     delete = id => {
-        axios.delete(`/viewPoint/${id}`).then(
+        axios.delete(`/api/viewPoint/${id}`).then(
             () => {
                 this.props.fetchList();
                 message.success('删除成功！');

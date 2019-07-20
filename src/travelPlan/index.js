@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Divider } from 'antd';
+import { Divider, Button } from 'antd';
 import TravelList from './travelList';
 import ViewPoint from './viewPoint';
 import './index.less';
 import actions from '../actions';
 import LoadingHit from '../common/loadingHint';
+import { Link } from 'react-router-dom';
 
 class TravelPlan extends Component {
     constructor(props) {
@@ -23,13 +24,30 @@ class TravelPlan extends Component {
     fetchData = () => {
         this.props.dispatch(actions.TravelPlan.fetchTravelPlanListStart());
     };
+    addViewPoint = () => {};
 
     render() {
         const { dataList, type } = this.props.travelPlan;
         return (
             <div>
-                <h1>旅游规划</h1>
-                <div className='travel-plan'>
+                <div className='title_block'>
+                    <h1 style={{ color: 'brown' }}>旅游规划</h1>
+                    <div className='btn'>
+                        <Button type='primary'>
+                            <Link to='#addViewPoint'>新增</Link>
+                        </Button>
+                    </div>
+                </div>
+                <LoadingHit type={type}>
+                    <TravelList
+                        dataList={dataList}
+                        fetchList={() => this.fetchData()}
+                        update={viewPoint => {
+                            this.setState({ editViewPoint: viewPoint });
+                        }}
+                    />
+                </LoadingHit>
+                {/* <div className='travel-plan'>
                     <div style={{ flex: 1 }}>
                         <h2>添加想要去游玩的景点</h2>
                         <ViewPoint fetchList={() => this.fetchData()} viewPoint={this.state.editViewPoint} />
@@ -42,7 +60,6 @@ class TravelPlan extends Component {
                             flex: 2
                         }}
                     >
-                        <h2>景点列表</h2>
                         <LoadingHit type={type}>
                             <TravelList
                                 dataList={dataList}
@@ -54,6 +71,7 @@ class TravelPlan extends Component {
                         </LoadingHit>
                     </div>
                 </div>
+            */}
             </div>
         );
     }

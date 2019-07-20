@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import 'moment/locale/zh-cn';
-import { Input, Form, DatePicker, message, Icon, Upload, Modal, Button } from 'antd';
+import { Input, Form, DatePicker, message, Icon, Upload, Modal, Button, Row, Col, Radio } from 'antd';
 import axios from 'axios';
 import './index.less';
+
+const { RangePicker } = DatePicker;
 
 class ViewPoint extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class ViewPoint extends Component {
             isEdit: false
         };
     }
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         let _fileList = [];
         if (nextProps.viewPoint && nextProps.viewPoint._id !== this.state.preProps.viewPoint._id) {
             nextProps.viewPoint &&
@@ -39,9 +40,10 @@ class ViewPoint extends Component {
             if (!err) {
                 const data = {
                     ...values,
-                    bestTime: moment(values.bestTime).format('YYYY-MM-DD')
+                    bestTime: moment(values.bestTime).format('YYYY-MM-DD'),
+                    whenDid: values.whenDid && values.whenDid.map(item => moment(item).format('YYYY-MM-DD'))
                 };
-                if (this.props.viewPoint._id) {
+                if (this.props.viewPoint && this.props.viewPoint._id) {
                     data._id = this.props.viewPoint._id;
                 }
                 axios
@@ -49,6 +51,7 @@ class ViewPoint extends Component {
                     .then(() => {
                         this.props.form.resetFields();
                         message.success('添加成功！');
+                        this.props.history.push('#travelPlan');
                         this.props.fetchList();
                     })
                     .catch(function(error) {
@@ -85,7 +88,7 @@ class ViewPoint extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        let { viewPoint } = this.props;
+        let viewPoint = this.props.viewPoint || {};
         const uploadButton = (
             <div>
                 <Icon type='plus' />
@@ -95,28 +98,62 @@ class ViewPoint extends Component {
 
         const { previewVisible, previewImage, fileList, isEdit } = this.state;
         return (
-            <div>
-                <Form>
-                    <Form.Item label='景点' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
-                        {getFieldDecorator('title', {
-                            initialValue: viewPoint.title || undefined
-                        })(<Input />)}
-                    </Form.Item>
-                    <Form.Item label='最佳游玩时间' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
-                        {getFieldDecorator('bestTime', {
-                            initialValue: moment(viewPoint.bestTime) || undefined
-                        })(<DatePicker />)}
-                    </Form.Item>
-                    <Form.Item label='交通方式' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
-                        {getFieldDecorator('transportation', {
-                            initialValue: viewPoint.transportation || undefined
-                        })(<Input />)}
-                    </Form.Item>
-                    <Form.Item label='小伙伴' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
-                        {getFieldDecorator('partner', {
-                            initialValue: viewPoint.partner || undefined
-                        })(<Input />)}
-                    </Form.Item>
+            <div className='add_view_point'>
+                <h2>新增旅游规划</h2>
+                <Form style={{ width: '100%' }}>
+                    <Row gutter={24}>
+                        <Col span={12}>
+                            <Form.Item label='景点' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                                {getFieldDecorator('title', {
+                                    initialValue: viewPoint.title || undefined
+                                })(<Input />)}
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item label='最佳游玩时间' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                                {getFieldDecorator('bestTime', {
+                                    initialValue: moment(viewPoint.bestTime) || undefined
+                                })(<DatePicker />)}
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={24}>
+                        <Col span={12}>
+                            <Form.Item label='交通方式' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                                {getFieldDecorator('transportation', {
+                                    initialValue: viewPoint.transportation || undefined
+                                })(<Input />)}
+                            </Form.Item>
+                        </Col>{' '}
+                        <Col span={12}>
+                            <Form.Item label='小伙伴' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                                {getFieldDecorator('partner', {
+                                    initialValue: viewPoint.partner || undefined
+                                })(<Input />)}
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={24}>
+                        <Col span={12}>
+                            <Form.Item label='是否去过' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                                {getFieldDecorator('isGo', {
+                                    initialValue: viewPoint.isGo || 0
+                                })(
+                                    <Radio.Group>
+                                        <Radio value={0}>否</Radio>
+                                        <Radio value={1}>是</Radio>
+                                    </Radio.Group>
+                                )}
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item label='何时去过' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                                {getFieldDecorator('whenDid', {
+                                    initialValue: viewPoint.whenDid
+                                })(<RangePicker />)}
+                            </Form.Item>
+                        </Col>
+                    </Row>
                     {isEdit && (
                         <Form.Item label='照片墙' labelCol={{ span: 8 }} wrapperCol={{ span: 20 }} style={{ display: 'flex' }}>
                             <div className='clearfix'>
@@ -136,18 +173,18 @@ class ViewPoint extends Component {
                         </Form.Item>
                     )}
                 </Form>
-
-                <Button onClick={this.save} className='btn'>
-                    保存
-                </Button>
-                <Button
-                    onClick={() => {
-                        this.setState({ isEdit: true, fileList: [] });
-                    }}
-                    className='btn'
-                >
-                    重新添加
-                </Button>
+                <div>
+                    <Button onClick={this.save} className='btn'>
+                        保存
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            this.props.history.push('#travelPlan');
+                        }}
+                    >
+                        取消
+                    </Button>
+                </div>
             </div>
         );
     }

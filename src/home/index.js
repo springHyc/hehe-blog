@@ -2,19 +2,33 @@ import React, { Component } from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import './index.less';
 import PandaIcon from './pandaIcon';
-import menuConfigs from '../common/menuConfigs';
+// import menuConfigs from '../common/menuConfigs';
+import MenuConfigs from '../common/menuConfigs';
 import Introduction from '../introduction';
 const { Header, Content, Footer } = Layout;
 export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedMenu: { component: <Introduction /> }
+            selectedMenu: { component: <Introduction {...props} /> }
         };
+        this.menuConfigs = MenuConfigs(props);
     }
 
-    onChangemenu = ({ item, key, keyPath, domEvent }) => {
+    componentDidMount() {
+        this.props.history.listen(route => {
+            debugger;
+            this.menuConfigs.forEach(config => {
+                if (config.key === route.hash) {
+                    this.setState({ selectedMenu: config });
+                }
+            });
+        });
+    }
+
+    onChangemenu = ({ item, key, keyPath, domEvent, component }) => {
         this.setState({ selectedMenu: item.props });
+        this.props.history.push(key); // 改变导航栏上的地址展示
     };
     render() {
         return (
@@ -30,15 +44,17 @@ export default class Home extends Component {
                     <Menu
                         theme='dark'
                         mode='horizontal'
-                        defaultSelectedKeys={['/home']}
+                        defaultSelectedKeys={['#home']}
                         style={{ lineHeight: '64px' }}
                         onClick={this.onChangemenu}
                     >
-                        {menuConfigs.map(menu => (
-                            <Menu.Item key={menu.key} component={menu.component}>
-                                {menu.name}
-                            </Menu.Item>
-                        ))}
+                        {this.menuConfigs
+                            .filter(item => item.show)
+                            .map(menu => (
+                                <Menu.Item key={menu.key} component={menu.component}>
+                                    {menu.name}
+                                </Menu.Item>
+                            ))}
                     </Menu>
                 </Header>
                 <Content style={{ padding: '0 50px', margin: '128px 0 0px 0' }}>

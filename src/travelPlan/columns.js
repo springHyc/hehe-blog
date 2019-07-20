@@ -14,10 +14,12 @@ export default [
     },
     {
         title: '是否已经去过',
-        dataIndex: 'isGo'
+        dataIndex: 'isGo',
+        render: value => (value ? '是' : '否')
     },
     {
         title: '什么时候去的',
-        dataIndex: 'whenDid'
+        dataIndex: 'whenDid',
+        render: values => (values.length > 0 && `${values[0]}至${values[1]}`) || '无'
     }
 ];
