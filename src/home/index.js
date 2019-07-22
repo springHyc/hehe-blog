@@ -17,7 +17,6 @@ export default class Home extends Component {
 
     componentDidMount() {
         this.props.history.listen(route => {
-            debugger;
             this.menuConfigs.forEach(config => {
                 if (config.key === route.hash) {
                     this.setState({ selectedMenu: config });
