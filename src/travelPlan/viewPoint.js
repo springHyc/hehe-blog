@@ -103,14 +103,14 @@ class ViewPoint extends Component {
                 <Form style={{ width: '100%' }}>
                     <Row gutter={24}>
                         <Col span={12}>
-                            <Form.Item label='景点' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                            <Form.Item label='景点' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
                                 {getFieldDecorator('title', {
                                     initialValue: viewPoint.title || undefined
                                 })(<Input />)}
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item label='最佳游玩时间' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                            <Form.Item label='最佳游玩时间' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
                                 {getFieldDecorator('bestTime', {
                                     initialValue: moment(viewPoint.bestTime) || undefined
                                 })(<DatePicker />)}
@@ -119,14 +119,14 @@ class ViewPoint extends Component {
                     </Row>
                     <Row gutter={24}>
                         <Col span={12}>
-                            <Form.Item label='交通方式' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                            <Form.Item label='交通方式' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
                                 {getFieldDecorator('transportation', {
                                     initialValue: viewPoint.transportation || undefined
                                 })(<Input />)}
                             </Form.Item>
                         </Col>{' '}
                         <Col span={12}>
-                            <Form.Item label='小伙伴' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                            <Form.Item label='小伙伴' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
                                 {getFieldDecorator('partner', {
                                     initialValue: viewPoint.partner || undefined
                                 })(<Input />)}
@@ -135,7 +135,7 @@ class ViewPoint extends Component {
                     </Row>
                     <Row gutter={24}>
                         <Col span={12}>
-                            <Form.Item label='是否去过' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                            <Form.Item label='是否去过' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
                                 {getFieldDecorator('isGo', {
                                     initialValue: viewPoint.isGo || 0
                                 })(
@@ -147,7 +147,7 @@ class ViewPoint extends Component {
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item label='何时去过' labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ display: 'flex' }}>
+                            <Form.Item label='何时去过' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
                                 {getFieldDecorator('whenDid', {
                                     initialValue: viewPoint.whenDid
                                 })(<RangePicker />)}
