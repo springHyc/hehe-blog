@@ -34,7 +34,7 @@ class TravelPlan extends Component {
                     <h1 style={{ color: 'brown' }}>旅游规划</h1>
                     <div className='btn'>
                         <Button type='primary'>
-                            <Link to='#addViewPoint'>新增</Link>
+                            <Link to={{ pathname: '/addViewPoint', state: { a: 21 } }}>新增</Link>
                         </Button>
                     </div>
                 </div>

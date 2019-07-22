@@ -87,6 +87,7 @@ class ViewPoint extends Component {
     };
 
     render() {
+        console.log(this.props.location.state);
         const { getFieldDecorator } = this.props.form;
         let viewPoint = this.props.viewPoint || {};
         const uploadButton = (
