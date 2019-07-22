@@ -3,6 +3,23 @@
 
 ## 更新说明
 
+### 20190722
+
+this.props.history.push的用法：
+
+```js
+this.props.history.push("/addViewPoint");// pathname
+this.props.history.push("#addViewPoint");// hash
+this.props.history.push({
+    key: "xxx",
+    hash: '#editViewPoint',
+    pathname: "xxx",
+    search: "xxx",
+    state: { record }
+})
+```
+
+
 ### 20190719
 
 - 删除：`"proxy": "http://127.0.0.1:4321",`,采用nginx进行反向代理来解决前后端跨域的问题

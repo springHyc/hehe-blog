@@ -62,7 +62,7 @@ export default class TravelList extends Component {
                             ghost
                             type='primary'
                             onClick={() => {
-                                // this.props.history.push(`#editViewPoint?viewPoint=${record}`);
+                                this.edit(record);
                             }}
                             className='table_btn'
                         >
@@ -80,6 +80,11 @@ export default class TravelList extends Component {
             },
             () => message.error('删除失败！')
         );
+    };
+
+    edit = record => {
+        // this.props.history.push({ hash: '#editViewPoint', state: { record } });
+        this.props.history.push({ pathname: '/editViewPoint', state: { record } });
     };
     render() {
         return (

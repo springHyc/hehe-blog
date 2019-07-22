@@ -34,7 +34,7 @@ class TravelPlan extends Component {
                     <h1 style={{ color: 'brown' }}>旅游规划</h1>
                     <div className='btn'>
                         <Button type='primary'>
-                            <Link to='#addViewPoint'>新增</Link>
+                            <Link to='/addViewPoint'>新增</Link>
                         </Button>
                     </div>
                 </div>
@@ -45,6 +45,7 @@ class TravelPlan extends Component {
                         update={viewPoint => {
                             this.setState({ editViewPoint: viewPoint });
                         }}
+                        {...this.props}
                     />
                 </LoadingHit>
                 {/* <div className='travel-plan'>
