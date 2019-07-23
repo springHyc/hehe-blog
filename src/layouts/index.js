@@ -9,10 +9,6 @@ const { Header, Content, Footer } = Layout;
 
 const defaultSelectedKeys = '/home';
 export default class Layouts extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     onChangemenu = ({ item, key, keyPath, domEvent, component }) => {
         this.props.history.push(key); // 改变导航栏上的地址展示
     };

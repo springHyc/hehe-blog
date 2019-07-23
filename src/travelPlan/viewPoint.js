@@ -34,7 +34,7 @@ class ViewPoint extends Component {
         if (nextProps.viewPoint && nextProps.viewPoint._id !== this.state.preProps.viewPoint._id) {
             nextProps.viewPoint &&
                 nextProps.viewPoint.imgIds &&
-                nextProps.viewPoint.imgIds.map(item => {
+                nextProps.viewPoint.imgIds.forEach(item => {
                     _fileList.push({
                         uid: '-1',
                         name: 'xxx.png',
@@ -53,8 +53,8 @@ class ViewPoint extends Component {
                     bestTime: moment(values.bestTime).format('YYYY-MM-DD'),
                     whenDid: values.whenDid && values.whenDid.map(item => moment(item).format('YYYY-MM-DD'))
                 };
-                if (this.props.viewPoint && this.props.viewPoint._id) {
-                    data._id = this.props.viewPoint._id;
+                if (this.state.isEdit) {
+                    data._id = this.props.location.state.record._id;
                 }
                 axios
                     .post('/api/viewPoint', { data })
@@ -62,7 +62,6 @@ class ViewPoint extends Component {
                         this.props.form.resetFields();
                         message.success('添加成功！');
                         this.props.history.goBack();
-                        this.props.fetchList();
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -147,11 +146,11 @@ class ViewPoint extends Component {
                         <Col span={12}>
                             <Form.Item label='是否去过' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
                                 {getFieldDecorator('isGo', {
-                                    initialValue: viewPoint.isGo || 0
+                                    initialValue: (this.state.isEdit && viewPoint.isGo) || false
                                 })(
                                     <Radio.Group>
-                                        <Radio value={0}>否</Radio>
-                                        <Radio value={1}>是</Radio>
+                                        <Radio value={false}>否</Radio>
+                                        <Radio value={true}>是</Radio>
                                     </Radio.Group>
                                 )}
                             </Form.Item>
@@ -159,7 +158,7 @@ class ViewPoint extends Component {
                         <Col span={12}>
                             <Form.Item label='何时去过' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
                                 {getFieldDecorator('whenDid', {
-                                    initialValue: viewPoint.whenDid
+                                    initialValue: this.state.isEdit && [moment(viewPoint.whenDid[0]), moment(viewPoint.whenDid[1])]
                                 })(<RangePicker />)}
                             </Form.Item>
                         </Col>
@@ -175,6 +174,14 @@ class ViewPoint extends Component {
                                             fileList={fileList}
                                             onPreview={this.handlePreview}
                                             onChange={this.handleChange}
+                                            onRemove={file => {
+                                                axios.delete(`/api/viewPoint/photo/${viewPoint._id}`, { params: { url: file.name } }).then(
+                                                    () => {
+                                                        message.success('删除成功！');
+                                                    },
+                                                    () => message.success('删除失败！')
+                                                );
+                                            }}
                                         >
                                             {fileList.length >= 3 ? null : uploadButton}
                                         </Upload>

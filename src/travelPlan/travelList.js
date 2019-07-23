@@ -7,9 +7,6 @@ import './index.less';
 let _fileList = [];
 
 export default class TravelList extends Component {
-    constructor(props) {
-        super(props);
-    }
     getColumns = () =>
         columns.concat([
             {
