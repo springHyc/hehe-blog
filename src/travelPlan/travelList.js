@@ -83,7 +83,7 @@ export default class TravelList extends Component {
     };
 
     edit = record => {
-        this.props.history.push({ pathname: '/editViewPoint', state: { record } });
+        this.props.history.push({ pathname: '/editViewPoint', state: { record, isEdit: true } });
     };
     render() {
         return (

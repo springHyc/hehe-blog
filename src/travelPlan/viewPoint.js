@@ -9,14 +9,24 @@ const { RangePicker } = DatePicker;
 class ViewPoint extends Component {
     constructor(props) {
         super(props);
+        const _isEdit = props.location.state.isEdit || false;
+        let _fileList = [];
+        if (_isEdit && props.location && props.location.state && props.location.state.record && props.location.state.record.imgIds) {
+            _fileList = props.location.state.record.imgIds.map((item, index) => ({
+                uid: index,
+                name: item,
+                status: 'done',
+                url: 'http://127.0.0.1:4321' + item
+            }));
+        }
         this.state = {
             previewVisible: false,
             previewImage: '',
-            fileList: [],
+            fileList: _fileList,
             preProps: {
                 viewPoint: { _id: undefined }
             },
-            isEdit: false
+            isEdit: _isEdit
         };
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -155,22 +165,26 @@ class ViewPoint extends Component {
                         </Col>
                     </Row>
                     {isEdit && (
-                        <Form.Item label='照片墙' labelCol={{ span: 8 }} wrapperCol={{ span: 20 }} style={{ display: 'flex' }}>
-                            <div className='clearfix'>
-                                <Upload
-                                    action={`/api/viewPoint/photo/upload?id=${this.props.viewPoint._id}`}
-                                    listType='picture-card'
-                                    fileList={fileList}
-                                    onPreview={this.handlePreview}
-                                    onChange={this.handleChange}
-                                >
-                                    {fileList.length >= 3 ? null : uploadButton}
-                                </Upload>
-                                <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-                                    <img alt='example' style={{ width: '100%' }} src={previewImage} />
-                                </Modal>
-                            </div>
-                        </Form.Item>
+                        <Row gutter={24}>
+                            <Col span={24}>
+                                <Form.Item label='照片墙' labelCol={{ span: 8 }} wrapperCol={{ span: 20 }} style={{ display: 'flex' }}>
+                                    <div className='clearfix'>
+                                        <Upload
+                                            action={`/api/viewPoint/photo/upload?id=${viewPoint._id}`}
+                                            listType='picture-card'
+                                            fileList={fileList}
+                                            onPreview={this.handlePreview}
+                                            onChange={this.handleChange}
+                                        >
+                                            {fileList.length >= 3 ? null : uploadButton}
+                                        </Upload>
+                                        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+                                            <img alt='example' style={{ width: '100%' }} src={previewImage} />
+                                        </Modal>
+                                    </div>
+                                </Form.Item>
+                            </Col>
+                        </Row>
                     )}
                 </Form>
                 <div>
