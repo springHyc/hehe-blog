@@ -51,7 +51,7 @@ class ViewPoint extends Component {
                     .then(() => {
                         this.props.form.resetFields();
                         message.success('添加成功！');
-                        this.props.history.push('#travelPlan');
+                        this.props.history.goBack();
                         this.props.fetchList();
                     })
                     .catch(function(error) {
@@ -88,8 +88,7 @@ class ViewPoint extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        let viewPoint = this.props.viewPoint || {};
-        // this.props.location.state.record;
+        let viewPoint = (this.props.location.state && this.props.location.state.record) || {};
         const uploadButton = (
             <div>
                 <Icon type='plus' />
@@ -180,7 +179,7 @@ class ViewPoint extends Component {
                     </Button>
                     <Button
                         onClick={() => {
-                            this.props.history.push('#travelPlan');
+                            this.props.history.goBack();
                         }}
                     >
                         取消
