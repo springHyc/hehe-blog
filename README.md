@@ -3,6 +3,11 @@
 
 ## 更新说明
 
+### 20190724
+
+- react-router结合antd中的layout布局，子路由完成content内容的切换
+- 完善layouts中的面包屑并添加导航功能
+
 ### 20190722
 
 this.props.history.push的用法：

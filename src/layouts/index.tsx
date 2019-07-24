@@ -1,18 +1,42 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import PandaIcon from './pandaIcon';
 import ROUTES from '../common/routes.cnfigs';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Link } from 'react-router-dom';
 import './index.less';
 
 const { Header, Content, Footer } = Layout;
 
-const defaultSelectedKeys = '/home';
+const defaultCurrent = { path: '/home', name: '首页' };
 export default class Layouts extends Component {
-    onChangemenu = (o: any) => {
-        // @ts-ignore
-        this.props.history.push(o.key); // 改变导航栏上的地址展示
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            current: [defaultCurrent]
+        };
+    }
+
+    componentDidMount() {
+        this.props.history.listen(route => {
+            ROUTES.forEach(item => {
+                if (item.path === route.pathname) {
+                    let _current = this.state.current;
+                    let position = -1;
+                    _current.forEach((item, index) => {
+                        if (item.path === route.pathname) {
+                            position = index;
+                        }
+                    });
+                    if (position === -1) {
+                        _current.push({ name: item.name, path: item.path });
+                    } else {
+                        _current = _current.slice(0, position + 1);
+                    }
+                    this.setState({ current: _current });
+                }
+            });
+        });
+    }
     render() {
         return (
             <Layout className='layout'>
@@ -24,26 +48,24 @@ export default class Layouts extends Component {
                         <PandaIcon style={{ fontSize: '28px' }} />
                         <span>个人博客</span>
                     </div>
-                    <Menu
-                        theme='dark'
-                        mode='horizontal'
-                        defaultSelectedKeys={[defaultSelectedKeys]}
-                        style={{ lineHeight: '64px' }}
-                        onClick={this.onChangemenu}
-                    >
-                        {ROUTES.filter(item => item.show).map(menu => (
-                            // @ts-ignore
-                            <Menu.Item key={menu.path} component={menu.component}>
-                                {menu.name}
+                    <Menu theme='dark' mode='horizontal' defaultSelectedKeys={[defaultCurrent.path]} style={{ lineHeight: '64px' }}>
+                        {ROUTES.filter(item => item.show).map(route => (
+                            <Menu.Item key={route.path} name={route.name}>
+                                <Link to={route.path}>
+                                    <Icon type={route.iconType} />
+                                    <b>{route.name}</b>
+                                </Link>
                             </Menu.Item>
                         ))}
                     </Menu>
                 </Header>
                 <Content style={{ padding: '0 50px', margin: '128px 0 0px 0' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
+                        {this.state.current.map((item, index) => (
+                            <Breadcrumb.Item key={index}>
+                                <Link to={item.path}> {item.name}</Link>
+                            </Breadcrumb.Item>
+                        ))}
                     </Breadcrumb>
                     <div style={{ background: '#fff', padding: 24, minHeight: 'calc(100vh - 251px)' }}>
                         <Redirect from='/' to='/home' />
