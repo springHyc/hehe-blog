@@ -9,8 +9,9 @@ const { Header, Content, Footer } = Layout;
 
 const defaultSelectedKeys = '/home';
 export default class Layouts extends Component {
-    onChangemenu = ({ item, key, keyPath, domEvent, component }) => {
-        this.props.history.push(key); // 改变导航栏上的地址展示
+    onChangemenu = (o: any) => {
+        // @ts-ignore
+        this.props.history.push(o.key); // 改变导航栏上的地址展示
     };
     render() {
         return (
@@ -31,6 +32,7 @@ export default class Layouts extends Component {
                         onClick={this.onChangemenu}
                     >
                         {ROUTES.filter(item => item.show).map(menu => (
+                            // @ts-ignore
                             <Menu.Item key={menu.path} component={menu.component}>
                                 {menu.name}
                             </Menu.Item>
