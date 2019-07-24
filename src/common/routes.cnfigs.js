@@ -18,6 +18,7 @@ const ROUTES = [
         path: '/home',
         show: true,
         name: '首页',
+        iconType: 'home',
         component: Introduction
     },
     {
@@ -25,20 +26,21 @@ const ROUTES = [
         path: '/travelPlan',
         show: true,
         name: '旅游规划',
+        iconType: 'ordered-list',
         component: TravelPlan
     },
     {
         key: 'AddViewPoint',
         path: '/addViewPoint',
         show: false,
-        name: '新增旅游规划',
+        name: '新增',
         component: ViewPoint
     },
     {
         key: 'EditViewPoint',
         path: '/editViewPoint',
         show: false,
-        name: '修改旅游规划',
+        name: '修改',
         component: ViewPoint
     }
 ];
