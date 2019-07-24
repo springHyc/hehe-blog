@@ -5,8 +5,8 @@
 
 ### 20190724
 
-- 完善layouts中的面包屑并添加导航功能
 - react-router结合antd中的layout布局，子路由完成content内容的切换
+- 完善layouts中的面包屑并添加导航功能
 
 ### 20190722
 
