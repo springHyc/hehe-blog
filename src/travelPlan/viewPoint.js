@@ -133,7 +133,7 @@ class ViewPoint extends Component {
                                     initialValue: viewPoint.transportation || undefined
                                 })(<Input />)}
                             </Form.Item>
-                        </Col>{' '}
+                        </Col>
                         <Col span={12}>
                             <Form.Item label='小伙伴' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
                                 {getFieldDecorator('partner', {
