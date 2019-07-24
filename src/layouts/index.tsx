@@ -8,8 +8,8 @@ import './index.less';
 const { Header, Content, Footer } = Layout;
 
 const defaultCurrent = { path: '/home', name: '首页' };
-export default class Layouts extends Component {
-    constructor(props) {
+export default class Layouts extends Component<any, any> {
+    constructor(props: any) {
         super(props);
         this.state = {
             current: [defaultCurrent]
@@ -17,12 +17,13 @@ export default class Layouts extends Component {
     }
 
     componentDidMount() {
+        // @ts-ignore
         this.props.history.listen(route => {
             ROUTES.forEach(item => {
                 if (item.path === route.pathname) {
                     let _current = this.state.current;
                     let position = -1;
-                    _current.forEach((item, index) => {
+                    _current.forEach((item: any, index: any) => {
                         if (item.path === route.pathname) {
                             position = index;
                         }
@@ -50,8 +51,10 @@ export default class Layouts extends Component {
                     </div>
                     <Menu theme='dark' mode='horizontal' defaultSelectedKeys={[defaultCurrent.path]} style={{ lineHeight: '64px' }}>
                         {ROUTES.filter(item => item.show).map(route => (
+                            // @ts-ignore
                             <Menu.Item key={route.path} name={route.name}>
                                 <Link to={route.path}>
+                                    // @ts-ignore
                                     <Icon type={route.iconType} />
                                     <b>{route.name}</b>
                                 </Link>
@@ -61,7 +64,7 @@ export default class Layouts extends Component {
                 </Header>
                 <Content style={{ padding: '0 50px', margin: '128px 0 0px 0' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
-                        {this.state.current.map((item, index) => (
+                        {this.state.current.map((item: any, index: any) => (
                             <Breadcrumb.Item key={index}>
                                 <Link to={item.path}> {item.name}</Link>
                             </Breadcrumb.Item>
