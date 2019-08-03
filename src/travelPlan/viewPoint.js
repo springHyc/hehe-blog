@@ -50,8 +50,8 @@ class ViewPoint extends Component {
             if (!err) {
                 const data = {
                     ...values,
-                    bestTime: moment(values.bestTime).format('YYYY-MM-DD'),
-                    whenDid: values.whenDid && values.whenDid.map(item => moment(item).format('YYYY-MM-DD'))
+                    bestTime: moment(values.bestTime).format('YYYY/MM/DD'),
+                    whenDid: values.whenDid && values.whenDid.map(item => moment(item).format('YYYY/MM/DD'))
                 };
                 if (this.state.isEdit) {
                     data._id = this.props.location.state.record._id;
@@ -175,6 +175,9 @@ class ViewPoint extends Component {
                                             onPreview={this.handlePreview}
                                             onChange={this.handleChange}
                                             onRemove={file => {
+                                                if (file.name.indexOf('/img') == -1) {
+                                                    return;
+                                                }
                                                 axios.delete(`/api/viewPoint/photo/${viewPoint._id}`, { params: { url: file.name } }).then(
                                                     () => {
                                                         message.success('删除成功！');

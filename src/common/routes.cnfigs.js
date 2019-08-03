@@ -2,6 +2,7 @@ import AsyncCompnent from './HighOrderComponents/asyncComponent';
 const TravelPlan = AsyncCompnent(() => import('../travelPlan'));
 const Introduction = AsyncCompnent(() => import('../introduction'));
 const ViewPoint = AsyncCompnent(() => import('../travelPlan/viewPoint'));
+const PhotoWall = AsyncCompnent(() => import('../photoWall'));
 
 /**
  * {
@@ -43,6 +44,13 @@ const ROUTES = [
         name: '修改',
         component: ViewPoint
     }
+    // {
+    //     key: 'PhotoWall',
+    //     path: '/photowall',
+    //     show: false,
+    //     name: '照片墙',
+    //     component: PhotoWall
+    // }
 ];
 
 export default ROUTES;

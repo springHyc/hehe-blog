@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LocaleProvider, Table, Button, message, Upload } from 'antd';
+import { LocaleProvider, Table, Button, message, Upload, Modal, Icon } from 'antd';
 import zhCN from 'antd/es/locale-provider/zh_CN';
 import columns from './columns';
 import axios from 'axios';
@@ -7,11 +7,16 @@ import './index.less';
 let _fileList = [];
 
 export default class TravelList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { uploadModalVisible: false, uploadModalId: undefined };
+    }
     getColumns = () =>
         columns.concat([
             {
                 title: '照片墙掠影',
                 dataIndex: 'imgIds',
+                width: 240,
                 render: (values, record) => {
                     _fileList = values.map((item, index) => ({
                         uid: index,
@@ -28,6 +33,9 @@ export default class TravelList extends Component {
                                 _fileList = fileList;
                             }}
                             onRemove={file => {
+                                if (file.name.indexOf('/img') == -1) {
+                                    return;
+                                }
                                 axios.delete(`/api/viewPoint/photo/${record._id}`, { params: { url: file.name } }).then(
                                     () => {
                                         this.props.fetchList();
@@ -43,8 +51,9 @@ export default class TravelList extends Component {
             {
                 title: '操作',
                 dataIndex: 'action',
+                width: 180,
                 render: (value, record) => (
-                    <div>
+                    <div className='btn_block'>
                         <Button
                             ghost
                             type='primary'
@@ -65,6 +74,26 @@ export default class TravelList extends Component {
                         >
                             修改
                         </Button>
+                        <Button
+                            ghost
+                            type='primary'
+                            onClick={() => {
+                                this.setState({ uploadModalVisible: true, uploadModalId: record._id });
+                            }}
+                            className='table_btn'
+                        >
+                            导入photos
+                        </Button>
+                        <Button
+                            ghost
+                            type='primary'
+                            onClick={() => {
+                                this.showPhotoWall(record._id);
+                            }}
+                            className='table_btn'
+                        >
+                            照片墙
+                        </Button>
                     </div>
                 )
             }
@@ -79,21 +108,39 @@ export default class TravelList extends Component {
         );
     };
 
+    showPhotoWall = id => {
+        this.props.history.push({ pathname: '/photowall', state: { id: id } });
+    };
+
     edit = record => {
         this.props.history.push({ pathname: '/editViewPoint', state: { record, isEdit: true } });
     };
     render() {
         return (
-            <LocaleProvider locale={zhCN}>
-                <Table
-                    rowKey={(row, index) => `${index}-${row.id}`}
-                    columns={this.getColumns()}
-                    dataSource={this.props.dataList}
-                    locale={{ emptyText: '暂无数据' }}
-                    pagination={false}
-                    scroll={{ x: true }}
-                />
-            </LocaleProvider>
+            <div>
+                <LocaleProvider locale={zhCN}>
+                    <Table
+                        rowKey={(row, index) => `${index}-${row.id}`}
+                        columns={this.getColumns()}
+                        dataSource={this.props.dataList}
+                        locale={{ emptyText: '暂无数据' }}
+                        pagination={false}
+                        scroll={{ x: true }}
+                    />
+                </LocaleProvider>
+                <Modal
+                    visible={this.state.uploadModalVisible}
+                    title='导入精彩照片集'
+                    onCancel={() => this.setState({ uploadModalVisible: false })}
+                    onOk={() => this.setState({ uploadModalVisible: false })}
+                >
+                    <Upload action={`/api/viewPoint/photo/upload?id=${this.state.uploadModalId}`} multiple>
+                        <Button>
+                            <Icon type='upload' /> Upload
+                        </Button>
+                    </Upload>
+                </Modal>
+            </div>
         );
     }
 }

@@ -1,25 +1,30 @@
 export default [
-    { title: '景点', dataIndex: 'title' },
+    { title: '景点', dataIndex: 'title', width: 120 },
     {
         title: '最佳游玩时间',
-        dataIndex: 'bestTime'
+        dataIndex: 'bestTime',
+        width: 120
     },
     {
         title: '交通方式',
-        dataIndex: 'transportation'
+        dataIndex: 'transportation',
+        width: 120
     },
     {
         title: '小伙伴',
-        dataIndex: 'partner'
+        dataIndex: 'partner',
+        width: 150
     },
     {
-        title: '是否已经去过',
+        title: '去过',
         dataIndex: 'isGo',
+        width: 60,
         render: value => (value ? '是' : '否')
     },
     {
         title: '什么时候去的',
         dataIndex: 'whenDid',
-        render: values => (values.length > 0 && `${values[0]}至${values[1]}`) || '无'
+        width: 200,
+        render: values => (values.length > 0 && `${values[0]}-${values[1]}`) || '无'
     }
 ];

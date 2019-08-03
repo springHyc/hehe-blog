@@ -8,8 +8,8 @@ import './index.less';
 const { Header, Content, Footer } = Layout;
 
 const defaultCurrent = { path: '/home', name: '首页' };
-export default class Layouts extends Component<any, any> {
-    constructor(props: any) {
+export default class Layouts extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             current: [defaultCurrent]
@@ -17,13 +17,12 @@ export default class Layouts extends Component<any, any> {
     }
 
     componentDidMount() {
-        // @ts-ignore
         this.props.history.listen(route => {
             ROUTES.forEach(item => {
                 if (item.path === route.pathname) {
                     let _current = this.state.current;
                     let position = -1;
-                    _current.forEach((item: any, index: any) => {
+                    _current.forEach((item, index) => {
                         if (item.path === route.pathname) {
                             position = index;
                         }
@@ -54,7 +53,6 @@ export default class Layouts extends Component<any, any> {
                             // @ts-ignore
                             <Menu.Item key={route.path} name={route.name}>
                                 <Link to={route.path}>
-                                    // @ts-ignore
                                     <Icon type={route.iconType} />
                                     <b>{route.name}</b>
                                 </Link>
@@ -64,7 +62,7 @@ export default class Layouts extends Component<any, any> {
                 </Header>
                 <Content style={{ padding: '0 50px', margin: '128px 0 0px 0' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
-                        {this.state.current.map((item: any, index: any) => (
+                        {this.state.current.map((item, index) => (
                             <Breadcrumb.Item key={index}>
                                 <Link to={item.path}> {item.name}</Link>
                             </Breadcrumb.Item>
