@@ -13,13 +13,13 @@ class Image extends Component {
     render() {
         let styleObj = {};
         if (this.props.arrange.pos) {
-            styleObj = this.props.arrange.pos;
+            styleObj = Object.assign({}, this.props.arrange.pos);
         }
         if (this.props.arrange.rotate) {
             styleObj['transform'] = `rotate(${this.props.arrange.rotate}deg)`;
         }
         if (this.props.arrange.isCenter) {
-            styleObj.zIndex = 11;
+            styleObj['zIndex'] = 11;
         }
         let figureClassName = 'img-figure';
         figureClassName += this.props.arrange.isReverse ? ' is-reverse' : '';

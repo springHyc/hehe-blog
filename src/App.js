@@ -9,8 +9,8 @@ class App extends Component {
         return (
             <Router>
                 <Switch>
-                    {/* <Route path='/' render={props => <Layouts {...props} />} /> */}
-                    <Route path='/' render={props => <PhotoWall {...props} />} />
+                    <Route path='/' render={props => <Layouts {...props} />} />
+                    {/* <Route path='/' render={props => <PhotoWall {...props} />} /> */}
                 </Switch>
             </Router>
         );

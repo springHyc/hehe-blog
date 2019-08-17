@@ -186,10 +186,11 @@ class Gallery extends Component {
         ImgInfos.forEach(
             function(imgInfo, index) {
                 if (!this.state.figureArrangeArr[index]) {
+                    // eslint-disable-next-line react/no-direct-mutation-state
                     this.state.figureArrangeArr[index] = {
                         pos: {
-                            left: 0,
-                            top: 0
+                            left: 74, // 默认为0，因为不是整个页面，所以进行修改
+                            top: 251 // 默认为0，因为不是整个页面，所以进行修改
                         },
                         rotate: 0,
                         isReverse: false,

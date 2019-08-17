@@ -68,7 +68,7 @@ export default class Layouts extends Component {
                             </Breadcrumb.Item>
                         ))}
                     </Breadcrumb>
-                    <div style={{ background: '#fff', padding: 24, minHeight: 'calc(100vh - 251px)' }}>
+                    <div style={{ background: '#fff', padding: 24, minHeight: 'calc(100vh - 251px)', overflow: 'hidden' }}>
                         <Redirect from='/' to='/home' />
                         {ROUTES.map(item => (
                             <Route key={item.key} path={item.path} render={props => <item.component {...props} />} />

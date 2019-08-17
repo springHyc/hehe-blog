@@ -30,7 +30,7 @@ h3 {
     height: 100%;
 }
 .stage {
-    position: relative;
+    // position: relative;
     width: 100%;
     height: 100%;
     background: #ccc;
@@ -40,7 +40,7 @@ h3 {
     width: 100%;
     height: 100%;
     background: #dedede;
-    overflow: hidden;
+    // overflow: hidden;
 }
 .img-figure {
     position: absolute;
@@ -49,14 +49,22 @@ h3 {
     margin: 0;
     padding: 20px;
     border-radius: 3px;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    -webkit-perspective: 1800px;
     perspective: 1800px;
+    -webkit-box-shadow: 5px 5px 16px -1px rgba(0, 0, 0, 0.19);
     box-shadow: 5px 5px 16px -1px rgba(0, 0, 0, 0.19);
     background: #fff;
     cursor: pointer;
+    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
+    -webkit-transform-origin: 0 50% 0;
     transform-origin: 0 50% 0;
+    -webkit-transition: left 0.5s ease-in-out, top 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
+    transition: left 0.5s ease-in-out, top 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
     transition: left 0.5s ease-in-out, top 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transition: left 0.5s ease-in-out, top 0.5s ease-in-out, transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
     img {
         width: 240px;
     }
@@ -70,10 +78,12 @@ h3 {
     }
 }
 .img-figure.is-reverse {
+    -webkit-transform: translate(320px) rotateY(180deg);
     transform: translate(320px) rotateY(180deg);
 }
 .front,
 .back {
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     position: absolute;
     top: 0;
@@ -83,16 +93,18 @@ h3 {
 }
 .front {
     z-index: 2;
+    -webkit-transform: rotateY(0deg);
     transform: rotateY(0deg);
 }
 
 .back {
+    -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
 .img-nav {
     position: absolute;
     left: 0;
-    bottom: 30px;
+    bottom: 70px;
     text-align: center;
     z-index: 100;
     width: 100%;
@@ -102,11 +114,16 @@ h3 {
         height: 30px;
         background: #999;
         border-radius: 50%;
+        -webkit-transform: scale(0.5);
         transform: scale(0.5);
+        -webkit-transition: background-color 0.3s, -webkit-transform 0.6s ease-in-out;
+        transition: background-color 0.3s, -webkit-transform 0.6s ease-in-out;
         transition: transform 0.6s ease-in-out, background-color 0.3s;
+        transition: transform 0.6s ease-in-out, background-color 0.3s, -webkit-transform 0.6s ease-in-out;
         vertical-align: middle;
         cursor: pointer;
         &.is-center {
+            -webkit-transform: scale(1);
             transform: scale(1);
             &:after {
                 font-family: 'iconfont';
@@ -117,6 +134,7 @@ h3 {
             }
             &.is-reverse {
                 background-color: #555;
+                -webkit-transform: rotateY(180deg);
                 transform: rotateY(180deg);
             }
         }

@@ -33,7 +33,7 @@ export default class TravelList extends Component {
                                 _fileList = fileList;
                             }}
                             onRemove={file => {
-                                if (file.name.indexOf('/img') == -1) {
+                                if (file.name.indexOf('/img') === -1) {
                                     return;
                                 }
                                 axios.delete(`/api/viewPoint/photo/${record._id}`, { params: { url: file.name } }).then(

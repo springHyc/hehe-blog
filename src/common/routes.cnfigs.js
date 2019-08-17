@@ -43,14 +43,14 @@ const ROUTES = [
         show: false,
         name: '修改',
         component: ViewPoint
+    },
+    {
+        key: 'PhotoWall',
+        path: '/photowall',
+        show: false,
+        name: '照片墙',
+        component: PhotoWall
     }
-    // {
-    //     key: 'PhotoWall',
-    //     path: '/photowall',
-    //     show: false,
-    //     name: '照片墙',
-    //     component: PhotoWall
-    // }
 ];
 
 export default ROUTES;

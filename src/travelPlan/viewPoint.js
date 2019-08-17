@@ -175,7 +175,7 @@ class ViewPoint extends Component {
                                             onPreview={this.handlePreview}
                                             onChange={this.handleChange}
                                             onRemove={file => {
-                                                if (file.name.indexOf('/img') == -1) {
+                                                if (file.name.indexOf('/img') === -1) {
                                                     return;
                                                 }
                                                 axios.delete(`/api/viewPoint/photo/${viewPoint._id}`, { params: { url: file.name } }).then(

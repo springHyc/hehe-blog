@@ -4,20 +4,20 @@ export const FETCH_TRAVEL_PLAN_LIST_FAILURE = 'FETCH_TRAVEL_PLAN_LIST_FAILURE';
 
 export function fetchTravelPlanListStart() {
     return {
-        type: 'FETCH_TRAVEL_PLAN_LIST_START'
+        type: FETCH_TRAVEL_PLAN_LIST_START
     };
 }
 
 export function fetchTravelPlanListSuccess(data) {
     return {
-        type: 'FETCH_TRAVEL_PLAN_LIST_SUCCESS',
+        type: FETCH_TRAVEL_PLAN_LIST_SUCCESS,
         data: data
     };
 }
 
 export function fetchTravelPlanListFailure(data) {
     return {
-        type: 'FETCH_TRAVEL_PLAN_LIST_FAILURE',
+        type: FETCH_TRAVEL_PLAN_LIST_FAILURE,
         data: data
     };
 }
