@@ -28,7 +28,7 @@ export default class TravelList extends Component {
                         <Upload
                             action={`/api/viewPoint/photo/upload?id=${record._id}`}
                             listType='picture-card'
-                            fileList={_fileList}
+                            fileList={_fileList.slice(0, 2)}
                             onChange={({ fileList }) => {
                                 _fileList = fileList;
                             }}
@@ -82,7 +82,7 @@ export default class TravelList extends Component {
                             }}
                             className='table_btn'
                         >
-                            导入photos
+                            导入照片
                         </Button>
                         <Button
                             ghost
@@ -132,7 +132,7 @@ export default class TravelList extends Component {
                     visible={this.state.uploadModalVisible}
                     title='导入精彩照片集'
                     onCancel={() => this.setState({ uploadModalVisible: false })}
-                    onOk={() => this.setState({ uploadModalVisible: false })}
+                    onOk={() => this.setState({ uploadModalVisible: false }, () => this.props.fetchList())}
                 >
                     <Upload action={`/api/viewPoint/photo/upload?id=${this.state.uploadModalId}`} multiple>
                         <Button>

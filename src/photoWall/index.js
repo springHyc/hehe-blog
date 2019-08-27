@@ -13,7 +13,11 @@ class PhotoWall extends Component {
         this.props.dispatch(actions.PhotoWall.fetchPhotoWallByIdStart(this.id));
     }
     render() {
-        return <Gallery />;
+        if (this.props.photoWall && this.props.photoWall.urls && this.props.photoWall.urls.length > 0) {
+            return <Gallery urls={this.props.photoWall.urls} imgInfos={this.props.photoWall.imgInfos} />;
+        } else {
+            return <span>loading...</span>;
+        }
     }
 }
 

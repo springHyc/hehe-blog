@@ -1,19 +1,20 @@
 export default [
-    { title: '景点', dataIndex: 'title', width: 120 },
+    { title: '景点', dataIndex: 'title', width: 100 },
     {
         title: '最佳游玩时间',
         dataIndex: 'bestTime',
-        width: 120
+        width: 110,
+        render: value => (value && value.length > 0 && value) || '无'
     },
     {
         title: '交通方式',
         dataIndex: 'transportation',
-        width: 120
+        width: 110
     },
     {
         title: '小伙伴',
         dataIndex: 'partner',
-        width: 150
+        width: 120
     },
     {
         title: '去过',
@@ -24,7 +25,7 @@ export default [
     {
         title: '什么时候去的',
         dataIndex: 'whenDid',
-        width: 200,
+        width: 180,
         render: values => (values.length > 0 && `${values[0]}-${values[1]}`) || '无'
     }
 ];

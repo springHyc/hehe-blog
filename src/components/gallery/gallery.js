@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import ImgsData from './imgsdata.json';
+// import ImgsData from './imgsdata.json';
 import Image from './image';
 import Controller from './controller';
 import './gallery.less';
 
-// 获取图片数组相关信息，增加 URL
-let ImgInfos = ImgsData.map(img => {
-    return Object.assign({}, img, { url: require(`./imgs/${img.filename}`) });
-});
-
-let getRandom = (min, max) => {
-    return Math.floor(Math.random() * (max - min) + min);
-};
+// // 获取图片数组相关信息，增加 URL
+// let ImgInfos = ImgsData.map(img => {
+//     return Object.assign({}, img, { url: require(`./imgs/${img.filename}`) });
+// });
+//
+let getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
 // 获取-30~30的随机数字
-let getRandomDeg = () => {
-    return (Math.random() > 0.5 ? '' : '-') + Math.ceil(Math.random() * 30);
-};
+let getRandomDeg = () => (Math.random() > 0.5 ? '' : '-') + Math.ceil(Math.random() * 30);
 
 /**
  * 整个 stage 分为左分区、右分区、上分区以及中间展示的 figure
@@ -157,6 +153,7 @@ class Gallery extends Component {
             halfStageWidth = Math.ceil(stageWidth / 2),
             halfStageHeight = Math.ceil(stageHeight / 2);
         // 获取 figure 的宽高
+
         let figure = document.getElementById('figure0'),
             figureWidth = figure.scrollWidth,
             figureHeight = figure.scrollHeight,
@@ -183,7 +180,12 @@ class Gallery extends Component {
     render() {
         let navigators = [];
         let imgFigures = [];
-        ImgInfos.forEach(
+        // 获取图片数组相关信息，增加 URL
+        let _ImgInfos = this.props.imgInfos.map(info => ({
+            ...info,
+            url: `http://127.0.0.1:4321${info.url}`
+        }));
+        _ImgInfos.forEach(
             function(imgInfo, index) {
                 if (!this.state.figureArrangeArr[index]) {
                     // eslint-disable-next-line react/no-direct-mutation-state

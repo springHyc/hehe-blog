@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Input, Form, DatePicker, message, Icon, Upload, Modal, Button, Row, Col, Radio } from 'antd';
+import { Input, Form, DatePicker, message, Icon, Upload, Modal, Button, Row, Col, Radio, Select } from 'antd';
 import axios from 'axios';
 import './index.less';
 
 const { RangePicker } = DatePicker;
+const { Option } = Select;
+const bestTimeChildren = ['3-4月', '4-5月', '9-10月', '12-2月'];
 
 class ViewPoint extends Component {
     constructor(props) {
@@ -26,7 +28,8 @@ class ViewPoint extends Component {
             preProps: {
                 viewPoint: { _id: undefined }
             },
-            isEdit: _isEdit
+            isEdit: _isEdit,
+            imgInfo: {}
         };
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -50,8 +53,7 @@ class ViewPoint extends Component {
             if (!err) {
                 const data = {
                     ...values,
-                    bestTime: moment(values.bestTime).format('YYYY/MM/DD'),
-                    whenDid: values.whenDid && values.whenDid.map(item => moment(item).format('YYYY/MM/DD'))
+                    whenDid: (values.whenDid && values.whenDid.map(item => moment(item).format('YYYY/MM/DD'))) || []
                 };
                 if (this.state.isEdit) {
                     data._id = this.props.location.state.record._id;
@@ -119,10 +121,16 @@ class ViewPoint extends Component {
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item label='最佳游玩时间' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
+                            <Form.Item label='最佳游玩月份' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} style={{ display: 'flex' }}>
                                 {getFieldDecorator('bestTime', {
-                                    initialValue: moment(viewPoint.bestTime) || undefined
-                                })(<DatePicker />)}
+                                    initialValue: viewPoint.bestTime || undefined
+                                })(
+                                    <Select mode='tags' style={{ width: '100%' }} tokenSeparators={[',']}>
+                                        {bestTimeChildren.map(item => {
+                                            return <Option key={item}>{item}</Option>;
+                                        })}
+                                    </Select>
+                                )}
                             </Form.Item>
                         </Col>
                     </Row>
@@ -188,8 +196,58 @@ class ViewPoint extends Component {
                                         >
                                             {fileList.length >= 3 ? null : uploadButton}
                                         </Upload>
-                                        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+                                        <Modal
+                                            visible={previewVisible}
+                                            // footer={null}
+                                            onCancel={this.handleCancel}
+                                            onOk={() => {
+                                                const data = {
+                                                    viewPointId: this.props.location.state.record._id,
+                                                    url: '/img' + previewImage.split('/img')[1],
+                                                    ...this.state.imgInfo
+                                                };
+                                                axios
+                                                    .post('/api/imgInfos/save', { data })
+                                                    .then(() => {
+                                                        message.success('添加成功！');
+                                                        this.handleCancel();
+                                                    })
+                                                    .catch(err => console.log(err));
+                                            }}
+                                            okText='保存'
+                                            cancelText='取消'
+                                        >
                                             <img alt='example' style={{ width: '100%' }} src={previewImage} />
+                                            <div className='imginfo'>
+                                                <Row gutter={24} type='flex' justify='start' align='middle'>
+                                                    <Col span={4}>
+                                                        <label>标题：</label>
+                                                    </Col>
+                                                    <Col span={18}>
+                                                        <Input
+                                                            onChange={e => {
+                                                                const imgInfo = this.state.imgInfo;
+                                                                imgInfo.title = e.target.value;
+                                                                this.setState({ imgInfo });
+                                                            }}
+                                                        />
+                                                    </Col>
+                                                </Row>
+                                                <Row gutter={24} type='flex' justify='start' align='middle'>
+                                                    <Col span={4}>
+                                                        <label>描述：</label>
+                                                    </Col>
+                                                    <Col span={18}>
+                                                        <Input
+                                                            onChange={e => {
+                                                                const imgInfo = this.state.imgInfo;
+                                                                imgInfo.desc = e.target.value;
+                                                                this.setState({ imgInfo });
+                                                            }}
+                                                        />
+                                                    </Col>
+                                                </Row>
+                                            </div>
                                         </Modal>
                                     </div>
                                 </Form.Item>
@@ -198,16 +256,15 @@ class ViewPoint extends Component {
                     )}
                 </Form>
                 <div>
-                    <Button onClick={this.save} className='btn'>
-                        保存
-                    </Button>
                     <Button
+                        className='btn'
                         onClick={() => {
                             this.props.history.goBack();
                         }}
                     >
                         取消
                     </Button>
+                    <Button onClick={this.save}>保存</Button>
                 </div>
             </div>
         );
