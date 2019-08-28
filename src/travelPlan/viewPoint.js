@@ -29,7 +29,7 @@ class ViewPoint extends Component {
                 viewPoint: { _id: undefined }
             },
             isEdit: _isEdit,
-            imgInfo: {}
+            imgInfo: { title: null, desc: null }
         };
     }
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -87,10 +87,26 @@ class ViewPoint extends Component {
             file.preview = await this.getBase64(file.originFileObj);
         }
 
-        this.setState({
-            previewImage: file.url || file.preview,
-            previewVisible: true
-        });
+        this.setState(
+            {
+                previewImage: file.url || file.preview,
+                previewVisible: true
+            },
+            () => this.fetchImgInfo(file.url || file.preview)
+        );
+    };
+
+    fetchImgInfo = url => {
+        const _url = '/img' + url.split('/img')[1];
+        axios
+            .get('/api/imgInfos/getImgInfo', {
+                params: {
+                    url: _url
+                }
+            })
+            .then(res => {
+                this.setState({ imgInfo: res.data.imgInfo });
+            });
     };
 
     handleChange = ({ fileList }) => {
@@ -198,7 +214,6 @@ class ViewPoint extends Component {
                                         </Upload>
                                         <Modal
                                             visible={previewVisible}
-                                            // footer={null}
                                             onCancel={this.handleCancel}
                                             onOk={() => {
                                                 const data = {
@@ -225,6 +240,7 @@ class ViewPoint extends Component {
                                                     </Col>
                                                     <Col span={18}>
                                                         <Input
+                                                            value={this.state.imgInfo.title}
                                                             onChange={e => {
                                                                 const imgInfo = this.state.imgInfo;
                                                                 imgInfo.title = e.target.value;
@@ -239,6 +255,7 @@ class ViewPoint extends Component {
                                                     </Col>
                                                     <Col span={18}>
                                                         <Input
+                                                            value={this.state.imgInfo.desc}
                                                             onChange={e => {
                                                                 const imgInfo = this.state.imgInfo;
                                                                 imgInfo.desc = e.target.value;
