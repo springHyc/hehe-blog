@@ -187,6 +187,7 @@ class Gallery extends Component {
         }));
         _ImgInfos.forEach(
             function(imgInfo, index) {
+                console.log('gallery: desc: ==', index, '===', imgInfo);
                 if (!this.state.figureArrangeArr[index]) {
                     // eslint-disable-next-line react/no-direct-mutation-state
                     this.state.figureArrangeArr[index] = {
