@@ -10,10 +10,21 @@ export default function asyncComponent(importComponent) {
         }
 
         async componentDidMount() {
+            if (this.hasLoadedComponent()) {
+                return;
+            }
             const { default: component } = await importComponent();
             this.setState({
                 component: component
             });
+        }
+
+        hasLoadedComponent() {
+            return this.state.component !== null;
+        }
+
+        componentWillUnmount() {
+            this.setState = () => {};
         }
 
         render() {
@@ -24,3 +35,27 @@ export default function asyncComponent(importComponent) {
 
     return AsyncComponent;
 }
+
+// import React, { Component } from 'react';
+
+// const asyncComponent = importComponent => {
+//     return class extends Component {
+//         constructor() {
+//             super();
+//             this.state = {
+//                 component: null
+//             };
+//         }
+//         componentDidMount() {
+//             importComponent().then(cmp => {
+//                 this.setState({ component: cmp.default });
+//             });
+//         }
+//         render() {
+//             const C = this.state.component;
+//             return C ? <C {...this.props} /> : null;
+//         }
+//     };
+// };
+
+// export default asyncComponent;

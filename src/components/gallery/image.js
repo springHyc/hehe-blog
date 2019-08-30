@@ -23,7 +23,6 @@ class Image extends Component {
         }
         let figureClassName = 'img-figure';
         figureClassName += this.props.arrange.isReverse ? ' is-reverse' : '';
-        console.log(`desc:====${this.props.data.desc}`);
         return (
             <figure className={figureClassName} id={this.props.id} style={styleObj} onClick={this.handleClick.bind(this)}>
                 <div className='front'>
@@ -31,7 +30,7 @@ class Image extends Component {
                     <h3 className='img-title'>{this.props.data.title}</h3>
                 </div>
                 <div className='back' onClick={this.handleClick.bind(this)}>
-                    <p style={{ color: 'red', zIndex: 99 }}>{this.props.data.desc}</p>
+                    <p>{this.props.data.desc}</p>
                 </div>
             </figure>
         );

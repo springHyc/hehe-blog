@@ -1,8 +1,13 @@
 import AsyncCompnent from './HighOrderComponents/asyncComponent';
-const TravelPlan = AsyncCompnent(() => import('../travelPlan'));
-const Introduction = AsyncCompnent(() => import('../introduction'));
-const ViewPoint = AsyncCompnent(() => import('../travelPlan/viewPoint'));
-const PhotoWall = AsyncCompnent(() => import('../photoWall'));
+const TravelPlan = AsyncCompnent(() => import('../travelPlan/index.js'));
+const Introduction = AsyncCompnent(() => import('../introduction/index.js'));
+const ViewPoint = AsyncCompnent(() => import('../travelPlan/viewPoint.js'));
+const PhotoWall = AsyncCompnent(() => import('../photoWall/index.js'));
+
+// import TravelPlan from '../travelPlan';
+// import Introduction from '../introduction';
+// import ViewPoint from '../travelPlan/viewPoint';
+// import PhotoWall from '../photoWall';
 
 /**
  * {

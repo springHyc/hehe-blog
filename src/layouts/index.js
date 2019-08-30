@@ -69,10 +69,11 @@ export default class Layouts extends Component {
                         ))}
                     </Breadcrumb>
                     <div style={{ background: '#fff', padding: 24, minHeight: 'calc(100vh - 251px)', overflow: 'hidden' }}>
-                        <Redirect from='/' to='/home' />
                         {ROUTES.map(item => (
                             <Route key={item.key} path={item.path} render={props => <item.component {...props} />} />
                         ))}
+                        <Route path='/' render={() => <Redirect to='/home' />} />
+                        {/* <Redirect from='/' to='/home' /> */}
                     </div>
                 </Content>
                 <Footer>贺贺 版权所有 | 采用默认主题 | 基于 React+Antd+Node 构建©2019 | 托管于xxx</Footer>
