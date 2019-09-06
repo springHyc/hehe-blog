@@ -6,6 +6,7 @@ import './index.less';
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
+const { TextArea } = Input;
 const bestTimeChildren = ['3-4月', '4-5月', '9-10月', '12-2月'];
 
 class ViewPoint extends Component {
@@ -187,10 +188,19 @@ class ViewPoint extends Component {
                             </Form.Item>
                         </Col>
                     </Row>
+                    <Row gutter={24}>
+                        <Col span={24}>
+                            <Form.Item label='体验' labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} style={{ display: 'flex' }}>
+                                {getFieldDecorator('notes', {
+                                    initialValue: (this.state.isEdit && viewPoint.notes) || undefined
+                                })(<TextArea rows={4} />)}
+                            </Form.Item>
+                        </Col>
+                    </Row>
                     {isEdit && (
                         <Row gutter={24}>
                             <Col span={24}>
-                                <Form.Item label='照片墙' labelCol={{ span: 8 }} wrapperCol={{ span: 20 }} style={{ display: 'flex' }}>
+                                <Form.Item label='照片墙' labelCol={{ span: 4 }} wrapperCol={{ span: 20 }} style={{ display: 'flex' }}>
                                     <div className='clearfix'>
                                         <Upload
                                             action={`/api/viewPoint/photo/upload?id=${viewPoint._id}`}
