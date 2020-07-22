@@ -1,7 +1,17 @@
 <!-- prettier-ignore-start -->
 # hehe-blog
 
+## 简介
+
+该项目是自己写的博客项目，包含的技术点：前端react项目，使用node服务起起来，后端是node写的项目，使用express + mongoose数据库（远程|自己）来写的。并结合nginx来做的反向代理；
+
+后端项目：`/Users/bairong/study/node-hello-world/blog/index.js`
+
 ## 更新说明
+
+### 本机启动
+
+* `npm run start` localhost:9999
 
 ### 端口说明
 
